@@ -1,0 +1,9 @@
+<resources>
+
+    <style name="Theme.lemon" parent="Theme.Material3.DynamicColors.DayNight.NoActionBar" />
+
+    <style name="PermReq">
+        <item name="android:fontFamily">@font/nunito</item>
+        <item name="fontVariationSettings">"'wght' 400"</item>
+    </style>
+</resources>

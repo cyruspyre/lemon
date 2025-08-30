@@ -1,0 +1,7 @@
+<resources>
+    <string name="label">Files</string>
+    <string name="app_name">Lemon</string>
+    <string name="access_denied">Access Denied</string>
+    <string name="perm_req">A desktop like file manager for android, codenamed <b><i>lemon</i></b>. As a file manager, it needs access to all your files for its functionality. Cuz… <i>duh</i>? It\'s a file manager.</string>
+    <string name="perm_req_btn">Proceed</string>
+</resources>
