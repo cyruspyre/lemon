@@ -5,12 +5,14 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.PopupWindow
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cyruspyre.lemon.databinding.NavBarBinding
 import com.cyruspyre.lemon.databinding.PathSegmentBinding
+import com.cyruspyre.lemon.databinding.ViewSettingPopupBinding
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import java.nio.file.Path
@@ -18,6 +20,26 @@ import java.nio.file.Path
 lateinit var onPathChange: (Path?) -> Unit
 
 fun navBar(context: Context, binding: NavBarBinding): (Path?) -> Unit {
+    var flag = false
+    val popupView = ViewSettingPopupBinding.inflate(LayoutInflater.from(context))
+    val popup = PopupWindow(
+        popupView.root,
+        220.dp,
+        ViewGroup.LayoutParams.WRAP_CONTENT,
+        true,
+    )
+
+    popup.elevation = 4f.dp
+    popup.setOnDismissListener {
+        binding.viewModifier.getChildAt(1).performClick()
+    }
+
+    binding.viewType.setOnClickListener {
+        flag = !flag
+        binding.viewType.setIconResource(if (flag) R.drawable.grid_view else R.drawable.list_view)
+
+        if (popup.isShowing) popup.dismiss() else popup.showAsDropDown(binding.viewType, 0, 16.dp)
+    }
     val field = binding.pathBar.getChildAt(0) as TextInputEditText
     val recycler = binding.pathBar.getChildAt(1) as RecyclerView
     val adapter = Adapter()

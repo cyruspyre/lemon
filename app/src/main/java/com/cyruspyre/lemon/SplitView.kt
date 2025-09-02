@@ -14,7 +14,7 @@ import android.view.animation.OvershootInterpolator
 import androidx.core.view.children
 import com.google.android.material.R.attr.colorOnSurfaceVariant
 import com.google.android.material.R.attr.colorOutline
-import com.google.android.material.R.attr.colorPrimary
+import com.google.android.material.R.attr.colorPrimaryContainer
 import com.google.android.material.color.MaterialColors.getColor
 import kotlin.math.roundToInt
 
@@ -38,7 +38,7 @@ class SplitView<T : View>(context: Context) : ViewGroup(context) {
         }
     }
     private val activePaint = Paint().apply {
-        color = getColor(this@SplitView, colorPrimary)
+        color = getColor(this@SplitView, colorPrimaryContainer)
         style = Paint.Style.STROKE
     }
     private val activeAnimator = ValueAnimator.ofInt(0, 255).apply {

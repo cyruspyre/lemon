@@ -23,20 +23,21 @@ internal class TabShape(val colors: ColorStateList) : Drawable() {
 
         val width = bounds.width().toFloat()
         val height = bounds.height().toFloat()
-        val circle = Path().apply { addCircle(0f, 0f, radius, Path.Direction.CW) }
+        val left = bounds.left.toFloat()
+        val circle = Path().apply { addCircle(left, 0f, radius, Path.Direction.CW) }
         val side = Path().apply {
             addRect(0f, 0f, radius, height - radius, Path.Direction.CW)
         }
 
         path = Path().apply {
             addRect(
-                0f, radius,
+                left, radius,
                 width, height,
                 Path.Direction.CW,
             )
 
             op(circle.apply { offset(0f, height - radius) }, Path.Op.DIFFERENCE)
-            op(side, Path.Op.DIFFERENCE)
+            op(side.apply { offset(left, 0f) }, Path.Op.DIFFERENCE)
             op(circle.apply { offset(diameter, -height + diameter) }, Path.Op.UNION)
             op(
                 Path().apply {

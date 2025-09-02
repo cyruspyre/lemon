@@ -3,6 +3,7 @@ package com.cyruspyre.lemon.tabs
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
@@ -18,6 +19,7 @@ class TabAdapter(
     data class ViewHolder(val binding: TabBinding) : RecyclerView.ViewHolder(binding.root)
 
     var active = 0
+    private var prevHover = -1
     private lateinit var context: Context
     private lateinit var home: Drawable
     private lateinit var folder: Drawable
@@ -41,9 +43,20 @@ class TabAdapter(
         root.background = TabRipple(
             context, TabShape(AppCompatResources.getColorStateList(context, R.color.tab))
         )
+        root.isActive = {
+            val pos = holder.absoluteAdapterPosition
+
+            if (prevHover != pos) {
+                notifyItemChanged(prevHover, Unit)
+                notifyItemChanged(pos, Unit)
+                prevHover = pos
+            }
+
+            pos == active
+        }
 
         root.setOnClickListener {
-            val idx = holder.adapterPosition
+            val idx = holder.absoluteAdapterPosition
 
             if (active != idx) {
                 val tmp = active
@@ -70,9 +83,10 @@ class TabAdapter(
         val isHome = path == null
 
         root.isSelected = active
-        root.elevation = if (active) 2f else 0f
+        root.elevation = if (active) 2f else if (root.isHovered) 1f else 0f
         tab.icon.background = if (isHome) home else folder
         tab.label.text = if (isHome) "Home" else path.name
+        tab.button.visibility = if (active || root.isHovered) View.VISIBLE else View.INVISIBLE
     }
 
     override fun getItemCount() = list.size

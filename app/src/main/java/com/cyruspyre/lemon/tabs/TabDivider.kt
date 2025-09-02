@@ -17,6 +17,10 @@ internal class TabDivider(context: Context) : RecyclerView.ItemDecoration() {
 
     override fun onDraw(canvas: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         for (i in 0..<parent.childCount - 1) {
+            val active = (parent.adapter as TabAdapter).active
+
+            if ((active - 1..active).contains(i)) continue
+
             val child = parent.getChildAt(i)
             val left = child.right.toFloat() + 12f.dp
 

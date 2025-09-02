@@ -54,7 +54,7 @@ abstract class EntityAdapter<T : ViewBinding> :
         var mark = TIME.markNow()
 
         root.setOnTouchListener { _, event ->
-            val idx = holder.adapterPosition
+            val idx = holder.absoluteAdapterPosition
 
             if (event.action == MotionEvent.ACTION_DOWN) button = event.buttonState
             else return@setOnTouchListener false

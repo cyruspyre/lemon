@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="Theme.lemon" parent="Theme.Material3.DynamicColors.DayNight.NoActionBar" />
+    <style name="Theme.lemon" parent="Theme.Material3Expressive.DynamicColors.DayNight.NoActionBar" />
 
     <style name="PermReq">
         <item name="android:fontFamily">@font/nunito</item>
